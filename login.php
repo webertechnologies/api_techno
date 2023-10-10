@@ -11,7 +11,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
 
     if ($row = mysqli_fetch_assoc($result)) {
         if (password_verify($password, $row['password'])) {
-            echo json_encode(array('message' => 'Login successful'));
+            // get name, email , id and role_id
+            $name = $row['name'];
+            $email = $row['email'];
+            $id = $row['user_id'];
+            $role_id = $row['role_id'];
+            $data = array('name' => $name, 'email' => $email, 'id' => $id, 'role_id' => $role_id);
+            echo json_encode(array('message' => 'Login successful', 'data' => $data));
         } else {
             echo json_encode(array('error' => 'Invalid password'));
         }
