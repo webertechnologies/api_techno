@@ -1,0 +1,146 @@
+openapi: 3.0.0
+servers:
+  - url: http://localhost:8000
+    description: Local server
+info:
+  title: Contracto Api
+  description: API for managing users, contracts, and contract acceptances
+  version: 1.0.0
+paths:
+  /register:
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                role_id:
+                  type: integer
+                city:
+                  type: string
+      responses:
+        '200':
+          description: User registered successfully
+        '400':
+          description: Bad request
+  /login:
+    post:
+      summary: User login
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Login successful
+        '401':
+          description: Invalid credentials
+  /contracts:
+    post:
+      summary: Create a new contract
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              properties:
+                user_id:
+                  type: integer
+                contract_text:
+                  type: string
+                number_of_workers_required:
+                  type: integer
+      responses:
+        '200':
+          description: Contract created successfully
+        '400':
+          description: Bad request
+    get:
+      summary: Get all contracts
+      responses:
+        '200':
+          description: Successful operation
+        '404':
+          description: No contracts found
+  /contracts/{contract_id}:
+    put:
+      summary: Update a contract by ID
+      parameters:
+        - in: path
+          name: contract_id
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: contract_text
+          schema:
+            type: string
+        - in: query
+          name: number_of_workers_required
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Contract updated successfully
+        '400':
+          description: Bad request
+        '404':
+          description: Contract not found
+    delete:
+      summary: Delete a contract by ID
+      parameters:
+        - in: path
+          name: contract_id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Contract deleted successfully
+        '404':
+          description: Contract not found
+  /contracts/{contract_id}/acceptances:
+    post:
+      summary: Accept a contract by ID
+      parameters:
+        - in: path
+          name: contract_id
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: worker_id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Contract accepted successfully
+        '400':
+          description: Bad request
+    delete:
+      summary: Unaccept a contract acceptance by ID
+      parameters:
+        - in: path
+          name: acceptance_id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Contract unaccepted successfully
+        '404':
+          description: Contract acceptance not found

@@ -1,0 +1,335 @@
+openapi: 3.0.3
+info:
+  title: Contracto Api
+  description: API for managing users, contracts, and contract acceptances
+  version: 1.0.0
+  contact: {}
+servers:
+  - url: http://127.0.0.1
+  - url: http://127.0.0.1/apis.contracto/
+paths:
+  /apis.contracto/register:
+    post:
+      tags:
+        - register
+      summary: Register a new user
+      description: Register a new user
+      operationId: registerANewUser
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                city:
+                  type: string
+                  example: <string>
+                email:
+                  type: string
+                  example: <string>
+                name:
+                  type: string
+                  example: <string>
+                password:
+                  type: string
+                  example: <string>
+                role_id:
+                  type: string
+                  example: <integer>
+            examples:
+              Register a new user:
+                value:
+                  city: <string>
+                  email: <string>
+                  name: <string>
+                  password: <string>
+                  role_id: <integer>
+      responses:
+        '200':
+          description: User registered successfully
+          content:
+            text/plain:
+              examples:
+                User registered successfully:
+                  value: ''
+        '400':
+          description: Bad request
+          content:
+            text/plain:
+              examples:
+                Bad request:
+                  value: ''
+  /login:
+    post:
+      tags:
+        - login
+      summary: User login
+      description: User login
+      operationId: userLogin
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: <string>
+                password:
+                  type: string
+                  example: <string>
+            examples:
+              User login:
+                value:
+                  email: <string>
+                  password: <string>
+      responses:
+        '200':
+          description: Login successful
+          content:
+            text/plain:
+              examples:
+                Login successful:
+                  value: ''
+        '401':
+          description: Invalid credentials
+          content:
+            text/plain:
+              examples:
+                Invalid credentials:
+                  value: ''
+  /contracts_accept:
+    post:
+      tags:
+        - contracts
+        - '{contract_id}'
+        - acceptances
+      summary: Accept a contract by ID
+      description: Accept a contract by ID
+      operationId: acceptAContractById
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                contract_id:
+                  type: string
+                  example: '2'
+                worker_id:
+                  type: string
+                  example: '1'
+            examples:
+              Accept a contract by ID:
+                value:
+                  contract_id: '2'
+                  worker_id: '1'
+      responses:
+        '200':
+          description: Contract accepted successfully
+          content:
+            text/plain:
+              examples:
+                Contract accepted successfully:
+                  value: ''
+        '400':
+          description: Bad request
+          content:
+            text/plain:
+              examples:
+                Bad request:
+                  value: ''
+    delete:
+      tags:
+        - contracts
+        - '{contract_id}'
+        - acceptances
+      summary: Unaccept a contract acceptance by ID
+      description: Unaccept a contract acceptance by ID
+      operationId: unacceptAContractAcceptanceById
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                acceptance_id:
+                  type: string
+                  example: '2'
+            examples:
+              Unaccept a contract acceptance by ID:
+                value:
+                  acceptance_id: '2'
+      responses:
+        '200':
+          description: Contract unaccepted successfully
+          content:
+            text/plain:
+              examples:
+                Contract unaccepted successfully:
+                  value: ''
+        '404':
+          description: Contract acceptance not found
+          content:
+            text/plain:
+              examples:
+                Contract acceptance not found:
+                  value: ''
+  /manage_contracts:
+    put:
+      tags:
+        - contracts
+        - '{contract_id}'
+      summary: Update a contract by ID
+      description: Update a contract by ID
+      operationId: updateAContractById
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                contract_id:
+                  type: string
+                  example: ''
+                contract_text:
+                  type: string
+                  example: ''
+                number_of_workers_required:
+                  type: string
+                  example: ''
+            examples:
+              Update a contract by ID:
+                value:
+                  contract_id: ''
+                  contract_text: ''
+                  number_of_workers_required: ''
+      responses:
+        '200':
+          description: Contract updated successfully
+          content:
+            text/plain:
+              examples:
+                Contract updated successfully:
+                  value: ''
+        '400':
+          description: Bad request
+          content:
+            text/plain:
+              examples:
+                Bad request:
+                  value: ''
+        '404':
+          description: Contract not found
+          content:
+            text/plain:
+              examples:
+                Contract not found:
+                  value: ''
+  /delete_contracts:
+    delete:
+      tags:
+        - contracts
+        - '{contract_id}'
+      summary: Delete a contract by ID
+      description: Delete a contract by ID
+      operationId: deleteAContractById
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                contract_id:
+                  type: string
+                  example: '1'
+            examples:
+              Delete a contract by ID:
+                value:
+                  contract_id: '1'
+      responses:
+        '200':
+          description: Contract deleted successfully
+          content:
+            text/plain:
+              examples:
+                Contract deleted successfully:
+                  value: ''
+        '404':
+          description: Contract not found
+          content:
+            text/plain:
+              examples:
+                Contract not found:
+                  value: ''
+  /create_contracts:
+    post:
+      tags:
+        - contracts
+      summary: Create a new contract
+      description: Create a new contract
+      operationId: createANewContract
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                contract_text:
+                  type: string
+                  example: <string>
+                number_of_workers_required:
+                  type: string
+                  example: <integer>
+                user_id:
+                  type: string
+                  example: <integer>
+            examples:
+              Create a new contract:
+                value:
+                  contract_text: <string>
+                  number_of_workers_required: <integer>
+                  user_id: <integer>
+      responses:
+        '200':
+          description: Contract created successfully
+          content:
+            text/plain:
+              examples:
+                Contract created successfully:
+                  value: ''
+        '400':
+          description: Bad request
+          content:
+            text/plain:
+              examples:
+                Bad request:
+                  value: ''
+  /contracts:
+    get:
+      tags:
+        - contracts
+      summary: Get all contracts
+      description: Get all contracts
+      operationId: getAllContracts
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            text/plain:
+              examples:
+                Successful operation:
+                  value: ''
+        '404':
+          description: No contracts found
+          content:
+            text/plain:
+              examples:
+                No contracts found:
+                  value: ''
+tags:
+  - name: register
+  - name: login
+  - name: contracts
+  - name: '{contract_id}'
+  - name: acceptances
