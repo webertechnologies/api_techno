@@ -47,7 +47,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://127.0.0.1/apis.contracto/register",
+							"raw": "https://apicontracto.cottonseeds.org/register",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -945,7 +945,7 @@
 	"variable": [
 		{
 			"key": "baseUrl",
-			"value": "http://127.0.0.1/apis.contracto/"
+			"value": "https://apicontracto.cottonseeds.org/"
 		}
 	]
 }
