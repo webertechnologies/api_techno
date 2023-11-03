@@ -5,8 +5,7 @@ info:
   version: 1.0.0
   contact: {}
 servers:
-  - url: http://127.0.0.1
-  - url: http://127.0.0.1/apis.contracto/
+  - url: https://apicontracto.cottonseeds.org
 paths:
   /apis.contracto/register:
     post:
