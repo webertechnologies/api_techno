@@ -9,8 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && isset($_PUT['contract_id']) && isset
     $contract_id = $_PUT['contract_id'];
     $contract_text = $_PUT['contract_text'];
     $number_of_workers_required = $_PUT['number_of_workers_required'];
+    $domain = $_PUT['domain'];
 
-    $query = "UPDATE Contracts SET contract_text='$contract_text', number_of_workers_required=$number_of_workers_required WHERE contract_id=$contract_id";
+    $query = "UPDATE Contracts SET contract_text='$contract_text', number_of_workers_required='$number_of_workers_required', domain='$domain' WHERE contract_id='$contract_id'";
 
     if (mysqli_query($conn, $query)) {
         echo json_encode(array('message' => 'Contract updated successfully'));
