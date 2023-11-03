@@ -1,5 +1,14 @@
 <?php
 require('includes/connection.php');
+// initialize variables
+$name = "";
+$email = "";
+$mobile = "";
+$password = "";
+$role_id = "";
+$city = "";
+$domain = "";
+$user_id = "";
 
 // API endpoint for user registration
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['role_id']) && isset($_POST['city'])) {
